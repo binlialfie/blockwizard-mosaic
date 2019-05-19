@@ -1,25 +1,7 @@
 # Blockwizard Deployment
 ## Files/Directories
-.
-├── README.md
-├── artifacts
-│   └── blockwizard-0.1.2.jar
-├── bw-deploy.retry
-├── bw-deploy.yml
-├── dev-invemtory
-│   └── bw.servers.yml
-└── roles
-    └── proj-bw
-        ├── handlers
-        │   └── main.yml
-        ├── tasks
-        │   └── main.yml
-        ├── templates
-        │   ├── blockwizard.service.j2
-        │   └── start.sh.j2
-        └── vars
-            └── main.yml
-            
+![](./screenshot/01.png)
+   
 ## Assumptions
 - Amazon Linux 2 VM (deployed successfully), VMs are alreadyrunning
 - Artifact building process has been taken care of, and stored in Cloud (but upload from local here with all templates)  
@@ -40,7 +22,7 @@ Change the following based on your setup
 Deploy
 `ansible-playbook -i ./dev-invemtory/bw.servers.yml bw-deploy.yml`
 
-![](/Users/binlialfie/Desktop/Screenshot 2019-05-19 at 18.00.22.png)
+![](./screenshot/02.png)
 
 make sure the VM SG port 16000 is open towards the IP (myip) you are in.
 
@@ -59,7 +41,7 @@ make sure the VM SG port 16000 is open towards the IP (myip) you are in.
 
 
 However, the application itself is not starting and throw some spring errors. Tried using different settings, no luck. Not sure if it is related to JDK version or not.
-![](/Users/binlialfie/Desktop/Screenshot 2019-05-19 at 19.15.20.png)
+![](./screenshot/03.png)
  
 
 ## Improvements 
