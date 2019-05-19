@@ -19,7 +19,7 @@ Change the following based on your setup
 
 
 ## Deloyment Steps
-Deploy
+Deploy with  
 `ansible-playbook -i ./dev-invemtory/bw.servers.yml bw-deploy.yml`
 
 ![](./screenshot/02.png)
@@ -27,7 +27,7 @@ Deploy
 make sure the VM SG port 16000 is open towards the IP (myip) you are in.
 
 - The application itself must be provisioned using [Ansible](http://ansible.com)
-	-all ansible scripts are organised and following ansible framework/best practice.
+	- all ansible scripts are organised and following ansible framework/best practice.
 	 
 - The application should not run as a privileged user
 	- blockwizard user/group/workingDir is created in remote machine using ansible for application run. The process is ruuning as systemD unite specifying the user.
