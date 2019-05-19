@@ -3,12 +3,12 @@
 ![](./screenshot/01.png)
    
 ## Assumptions
-- Amazon Linux 2 VM (deployed successfully), VMs are alreadyrunning
+- Amazon Linux 2 VM (deployed successfully), VMs are already running
 - Artifact building process has been taken care of, and stored in Cloud (but upload from local here with all templates)  
 
 ## Initialise
 
-Change the following based on your setup
+Change the following to suit the setup
 
 - dev-invemtory/bw.servers.yml
 	- ansible_ssh_private_key_file: change based on the ssh key used to log into VM;
