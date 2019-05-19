@@ -1,0 +1,10 @@
+---
+# vars file for blockwizard
+
+bw_user: blockwizard
+bw_group: blockwizard
+
+bw_ver: 0.1.2
+bw_artifact: "{{ bw_user }}-{{ bw_ver }}.jar"
+bw_artifact_remote: "/home/{{ bw_user }}/app"
+bw_artifact_local: "../../artifacts"

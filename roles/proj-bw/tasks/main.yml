@@ -1,0 +1,85 @@
+---
+# tasks file for blockwizard
+
+- name: install the version 8 of Java 
+  yum:
+    name: java-1.8.0-openjdk.x86_64
+    state: latest
+  become: true
+  become_user: "root"
+
+- name: create group "{{ bw_group }}"
+  group: 
+    name: "{{ bw_group }}"
+  become: true
+
+- name: create user "{{ bw_user }}"  
+  user:
+      name: "{{ bw_user }}"
+      group: "{{ bw_group }}"
+      shell: "/bin/bash"
+      append: yes
+      comment: "{{ bw_user }} User"
+      home: "/home/{{ bw_user }}"
+      state: present
+  become: true
+
+- name: create {{ bw_user }} folder
+  file:
+    path: "/home/{{ bw_user }}/app/"
+    state: directory
+    owner: "{{ bw_user }}"
+    group: "{{ bw_group }}"
+    mode: 0700
+    recurse: yes
+  become: true
+  become_method: sudo
+  become_user: "{{ bw_user }}"
+
+
+- name: create {{ bw_user }} log folder
+  file:
+    path: "/var/log/{{ bw_user }}"
+    state: directory
+    owner: "{{ bw_user }}"
+    group: "{{ bw_group }}"
+    mode: 0755
+    recurse: yes
+  become: true
+  become_user: "root"
+
+- name: copy artifact to remote server
+  copy:
+      src: "{{ bw_artifact_local }}/{{ bw_artifact }}"
+      dest: "{{ bw_artifact_remote }}/{{ bw_artifact }}"
+      mode: 0755
+  become: true
+  become_method: sudo
+  become_user: "{{ bw_user }}"
+
+- name: copy artifact control file to remote server
+  template: 
+      src: "templates/start.sh.j2" 
+      dest: "{{ bw_artifact_remote }}/start.sh"
+      mode: 0755
+  become: true
+  become_method: sudo
+  become_user: "{{ bw_user }}"
+
+- name: blockwizard | Create Unit file
+  template: 
+    src: "templates/{{ bw_user }}.service.j2" 
+    dest: "/lib/systemd/system/{{ bw_user }}.service" 
+    mode: 0644
+  notify:
+    - reload systemctl
+  become: true
+  become_user: "root"
+
+- name: blockwizard | Start blockwizard
+  service: 
+    name: "{{ bw_user }}.service" 
+    state: "started" 
+    enabled: yes
+  become: true
+  become_user: "root"

@@ -1,0 +1,17 @@
+[Unit]
+Description={{ bw_user }} Service
+Requires=network.target
+After=syslog.target network.target
+[Service]
+Type=forking
+EnvironmentFile=
+ExecStart={{ bw_artifact_remote }}/start.sh
+ExecStop=
+User={{ bw_user }}
+PIDFile={{ bw_artifact_remote }}/{{ bw_user }}.pid
+StandardOutput=file:/var/log/{{ bw_user }}/info.log
+StandardError=file:/var/log/{{ bw_user }}/err.log
+Environment=
+Restart=always
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+#!/bin/bash
+DIRECTORY=`dirname $0`
+cd $DIRECTORY
+java -Dspring.profiles.active={{ node_mode }} -jar $DIRECTORY/blockwizard-0.1.2.jar
